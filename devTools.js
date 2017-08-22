@@ -12,7 +12,8 @@ var myDevTools = {
         if (options == "a" || !options) {
             selector = ".hidden";
         } else if (options == "sections") {
-            selector = "sections .hidden";
+        	console.log("unhide sections");
+            selector = "section.hidden";
         } else if (options == "undo" || options == "unhide") {
             $(".unhidden").toggleClass("unhidden hidden");
         } else {
