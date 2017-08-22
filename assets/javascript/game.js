@@ -2,7 +2,8 @@ $(document).ready(function() {
 
 	var game = {
 
-		// array of objects consisting of questions, choices, and answers
+		// array of objects consisting of questions, choices, and 
+		// answers
 		questions: [
 			{
 				question: "What color is the sky?",
@@ -15,33 +16,17 @@ $(document).ready(function() {
 				answer: "4"
 			}
 		],
+		// template html element
 		$qTemplate: $("q-template"),
 
 
 
 		// ----- methods ----- //
 
-		initGame: function() {
-			// add questions to the document
-			for ( var i = 0; i < questions.length; i++ ) {
-				// copy question template and insert the copy after the template
-				// set the id of the question section = to "q" + i
-				// set the prompt text
-
-				for ( var x = 0; x < questions.choices.length; x++ ) {
-					// add list of answers to . choices
-				}
-			} 
-
-
-			// listener for click events
-			$(document).on("click", function() {
-
-			});
-		},
-
 		run: function() {
-
+			// add questions (still hidden) to the document
+			// set a timeout to ask user if still there
+			// set event listeners and handle events
 
 
 
@@ -55,3 +40,26 @@ $(document).ready(function() {
 
 	game.run();
 });
+
+/**** development tools *****/
+var myDevTools = {
+	// unhide/re-hide elements based on options
+	unhide: function(options) {
+		var selector;
+		var changed;
+		if ( options == "a" || !options ) {
+			selector = ".hidden";
+		} else if ( options == "sections" ) {
+			selector = "sections .hidden";
+		} else if ( options == "undo" || options == "unhide" ) {
+			$("unhidden").toggleClass("unhidden hidden");
+		} else {
+			console.log("myDevTools.unhide: invalid parameter passed");
+		}
+		if ( selector ) {
+			changed = $(selector);
+			changed.removeClass("hidden").addClass("unhidden");
+			console.log("successfully unhid", changed );
+		}
+	}
+};
