@@ -18,4 +18,3 @@ View the assignment instructions (here)[http://ucsd.bootcampcontent.com/UCSD-Cod
 * code animations
 * debug
 * repeat process for advanced assignment
-
