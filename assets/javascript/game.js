@@ -26,6 +26,7 @@ $(document).ready(function() {
 		addQuestions: function() {
 		// adds questions from questions property using template and 
 		// inserts them above the template
+		
 			var $newQ;
 			var id;
 			var qObj;
@@ -86,13 +87,30 @@ $(document).ready(function() {
 			// TODO:
 			// set a timeout to ask user if still there
 
-			// set event listeners
-			$(".start-game").on("click", this.startGame);
+			// start quiz if user clicks play button
+			$(".start-game").on("click", this.startQuiz);
+
+			// when user clicks next, display next question
+			// when user clicks previous, display prev queston
+			// whenn user clicks done, stop the quiz
 
 		},
 
-		startGame: function() {
+		startQuiz: function() {
+		// starts the quiz and quiz timer
 
+			// show the first question
+			// display the quiz timer and start the timer
+			// stop the quiz when time is up
+		},
+
+		stopQuiz: function() {
+		// stops quiz and displays the results
+
+			// get number of questions correct
+			// get number of questions incorrect
+			// get number of questions unanswered
+			// display quiz results
 		}
 
 	};
