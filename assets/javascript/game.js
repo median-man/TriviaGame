@@ -14,6 +14,11 @@ $(document).ready(function() {
 				q: "How many fingers are on a regular hand?",
 				choices: ["1", "3", "5", "4"],
 				a: "4"
+			},
+			{
+				q: "The pope is from which of the follow religions?",
+				choices: ["Mormon", "Roman Catholic", "Islam", "Hindu"],
+				a: "Roman Catholic"
 			}
 		],
 		// template html element
@@ -23,19 +28,26 @@ $(document).ready(function() {
 
 		// ----- methods ----- //
 
-		addQuestions: function() {
+		addQuestions: function(arrQ) {
 		// adds questions from questions property using template and 
 		// inserts them above the template
 		
 			var $newQ;
 			var id;
+			var hrefNext;
+			var hrefPrev;
 			var qObj;
 			var strHtml;
 
 			// add each questions in this.questions to the page
-			for ( var i = 0; i < this.questions.length; i++ ) {
-				qObj = this.questions[i];
+			for ( var i = 0; i < arrQ.length; i++ ) {
+				qObj = arrQ[i];
 				id = "q" + i;
+
+				// set href values for links to prev and next
+				// questions
+				hrefNext = "#q" + ( i + 1 );
+				hrefPrev = "#q" + ( i - 1);
 
 				// create a copy of the template giving it a unique 
 				// id based on index in the questions array
@@ -51,11 +63,28 @@ $(document).ready(function() {
 					// first question. hide previous
 					$newQ.find(".previous").addClass("hidden");
 
-				} else if ( i === this.questions.length - 1 ) {
-					// last question. show done instead of next
+					// set href for next question
+					$newQ.find(".next")
+						.attr("href", "#q" + ( i + 1 ));
+
+				// if the question is the final question
+				} else if ( i === arrQ.length - 1 ) {
+					// set href for previous to id of prev question
+					$newQ.find(".previous")
+						.attr("href", hrefPrev);
+
+					// last question. hide next and show done
 					$newQ.find(".next").addClass("hidden");
 					$newQ.find(".done").removeClass("hidden");
+
+				} else {
+					// set href for next and previous
+					$newQ.find(".previous")
+						.attr("href", hrefPrev);
+					$newQ.find(".next")
+						.attr("href", hrefNext);
 				}
+
 
 				// add each choice from q.choices
 				for ( var n = 0; n < qObj.choices.length; n++ ) {
@@ -82,7 +111,7 @@ $(document).ready(function() {
 		// only once after page loads.
 
 			// add questions (still hidden) to the document
-			this.addQuestions();
+			this.addQuestions(this.questions);
 
 			// TODO:
 			// set a timeout to ask user if still there
@@ -99,7 +128,7 @@ $(document).ready(function() {
 		startQuiz: function() {
 		// starts the quiz and quiz timer
 
-			// show the first question
+			// show the questions
 			// display the quiz timer and start the timer
 			// stop the quiz when time is up
 		},
