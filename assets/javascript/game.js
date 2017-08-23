@@ -133,21 +133,32 @@ $(document).ready(function() {
 			// whenn user clicks done, stop the quiz
 
 		},
+		quizTimer: function() {
+		// function passed to setInterval. tracks time
+		// and updates the displayed quiz time.
+
+			// decrement the timer
+			// update the displayed quiz time
+			// if timer is 0 stop the quiz
+		},
 
 		startQuiz: function() {
 		// starts the quiz and quiz timer
 
+			// set the remaining time to initial value
 			// hide the large game brand
 			// show timer
 			// show small game brand
 			// show the questions
 			// start the quiz timer
-			// stop the quiz when time is up
 		},
 
 		stopQuiz: function() {
 		// stops quiz and displays the results
 
+			// lock the questions
+			// stop the timer
+			// calculate elapsed time
 			// get number of questions correct
 			// get number of questions incorrect
 			// get number of questions unanswered
