@@ -33,11 +33,15 @@ $(document).ready(function() {
 		// inserts them above the template
 		
 			var $newQ;
+			var altStyle;
 			var id;
 			var hrefNext;
 			var hrefPrev;
 			var qObj;
 			var strHtml;
+
+			// class for setting alternate styling on questions
+			altStyle = "success";
 
 			// add each questions in this.questions to the page
 			for ( var i = 0; i < arrQ.length; i++ ) {
@@ -53,37 +57,42 @@ $(document).ready(function() {
 				// id based on index in the questions array
 				$newQ = this.$qTemplate.clone()
 					.attr("id", id);
+
+				// odd indexed questions are given different style
+				if ( i % 2 === 1 ) {
+					$newQ.addClass(altStyle);
+				}
 					
 
 				// populate the question
 				$newQ.find(".prompt").text(qObj.q);
 
-				// hide/show previous/next/done accordingly
-				if ( i === 0 ) {
-					// first question. hide previous
-					$newQ.find(".previous").addClass("hidden");
+				// // hide/show previous/next/done accordingly
+				// if ( i === 0 ) {
+				// 	// first question. hide previous
+				// 	$newQ.find(".previous").addClass("hide");
 
-					// set href for next question
-					$newQ.find(".next")
-						.attr("href", "#q" + ( i + 1 ));
+				// 	// set href for next question
+				// 	$newQ.find(".next")
+				// 		.attr("href", "#q" + ( i + 1 ));
 
-				// if the question is the final question
-				} else if ( i === arrQ.length - 1 ) {
-					// set href for previous to id of prev question
-					$newQ.find(".previous")
-						.attr("href", hrefPrev);
+				// // if the question is the final question
+				// } else if ( i === arrQ.length - 1 ) {
+				// 	// set href for previous to id of prev question
+				// 	$newQ.find(".previous")
+				// 		.attr("href", hrefPrev);
 
-					// last question. hide next and show done
-					$newQ.find(".next").addClass("hidden");
-					$newQ.find(".done").removeClass("hidden");
+				// 	// last question. hide next and show done
+				// 	$newQ.find(".next").addClass("hide");
+				// 	$newQ.find(".done").removeClass("hide");
 
-				} else {
-					// set href for next and previous
-					$newQ.find(".previous")
-						.attr("href", hrefPrev);
-					$newQ.find(".next")
-						.attr("href", hrefNext);
-				}
+				// } else {
+				// 	// set href for next and previous
+				// 	$newQ.find(".previous")
+				// 		.attr("href", hrefPrev);
+				// 	$newQ.find(".next")
+				// 		.attr("href", hrefNext);
+				// }
 
 
 				// add each choice from q.choices

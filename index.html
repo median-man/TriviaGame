@@ -1,37 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<title>Triva Game</title>
-	<link rel="stylesheet" href="assets/css/reset.css">
-	<link rel="stylesheet" href="assets/css/style.css">
+    <meta charset="UTF-8">
+    <title>Triva Game</title>
+    <!-- <link rel="stylesheet" href="assets/css/reset.css"> -->
+    <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css' integrity='sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u' crossorigin='anonymous'>
+  	<link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="assets/css/freelancer.css">
+    <link rel="stylesheet" href="assets/css/style.css">
+
+    <style>
+    
+    </style>
 </head>
+
 <body>
-	<section class="landing">
-		<h1>Game Title</h1>
-		<button class="start-game">Play</button>
-	</section>
-	<section id="q-template" class="hidden">
-		<div class="question">
-			<h2 class="prompt">Question</h2>
-			<div class="choices"></div>
-		</div>
-		<div>
-			<a href="#" class="previous">prev</a>
-			<a href="#" class="next">next</a>
-			<a href="" class="done hidden">done</a>
-		</div>
-	</section>
-	<section class="results hidden">
-		<h1>Game Title</h1>
-		<div id="score"></div>
-		<button class="start-game">Play</button>
-	</section>	
+	<!-- brand -->
+    <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <a class="navbar-brand" href="#page-top">Trivia Game</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <button class="start-game">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </button>
+<!--                     <div class="intro-text">
+                        <span class="name">Trivia Game</span>
+                    </div> -->
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="hide" id="q-template">
+        <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <p class="prompt">Lorem ipsum dolor sit amet, consectetur?</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="choices">
+                    <div class="text-center">
+                        <p>Lorem</p>
+                    </div>
+                    <div class="text-center">
+                        <p>Ipsum</p>
+                    </div>
+                    <div class="text-center">
+                        <p>Dolor</p>
+                    </div>
+                    <div class="text-center">
+                        <p>Consectetur</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="results hide">
+        <div class="container">
+            <div class="row">
+                <div class="text-center">
+                    <h2>Trivia Game</h2>
+                </div>
+            </div>
+            <div class="row">
+                <div class="" id="score">
+                </div>
+            </div>
+            <div class="row">
+                <div class="text-center">
+                	<button class="start-game">
+                        <span class="glyphicon glyphicon-play"></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
 </body>
-<script src="https://code.jquery.com/jquery-3.2.1.min.js" 
-	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" 
-	crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script src="assets/javascript/game.js"></script>
 <!-- devTools.js is for development only. remove before merging with master -->
 <script src="devTools.js"></script>
+
 </html>
