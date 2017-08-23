@@ -10,18 +10,18 @@ var myDevTools = {
         var selector;
         var changed;
         if (options == "a" || !options) {
-            selector = ".hidden";
+            selector = ".hide";
         } else if (options == "sections") {
         	console.log("unhide sections");
-            selector = "section.hidden";
+            selector = "section.hide";
         } else if (options == "undo" || options == "unhide") {
-            $(".unhidden").toggleClass("unhidden hidden");
+            $(".unhidden").toggleClass("unhidden hide");
         } else {
             console.log("myDevTools.unhide: invalid parameter passed");
         }
         if (selector) {
             changed = $(selector);
-            changed.removeClass("hidden").addClass("unhidden");
+            changed.removeClass("hide").addClass("unhidden");
             console.log("successfully unhid", changed);
         }
 
