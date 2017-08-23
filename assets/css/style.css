@@ -12,6 +12,11 @@ button.start-game .glyphicon {
     top: -1px;
 }
 
+/*** title/"nav" bar ***/
+.navbar-default .navbar-text {
+    color: white;
+}
+
 /*** header ***/
 .intro-text {
     margin-top: 15px;

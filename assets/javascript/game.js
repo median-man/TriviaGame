@@ -137,8 +137,11 @@ $(document).ready(function() {
 		startQuiz: function() {
 		// starts the quiz and quiz timer
 
+			// hide the large game brand
+			// show timer
+			// show small game brand
 			// show the questions
-			// display the quiz timer and start the timer
+			// start the quiz timer
 			// stop the quiz when time is up
 		},
 
@@ -156,5 +159,5 @@ $(document).ready(function() {
 	game.run();
 
 	/***** test code *****/
-	myDevTools.unhide("sections");
+	// myDevTools.unhide("sections");
 });
