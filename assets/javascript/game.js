@@ -262,6 +262,8 @@ $(document).ready(function() {
 			$(".start-game").on("click", this.startQuiz);
 
 			// when user clicks done, stop the quiz
+			$("#btnDone").on("click", this.stopQuiz);
+			
 			// when user clicks next, display next question
 			// when user clicks previous, display prev queston
 
