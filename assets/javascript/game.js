@@ -224,20 +224,23 @@ $(document).ready(function() {
 		startQuiz: function() {
 		// starts the quiz and quiz timer
 
-			// hide the large game brand and play button
-			$(".navbar-brand").addClass("hide");
-			$("header").addClass("hide");
-
-			// add top padding to first section
-			$("section").eq(0).css("padding-top", "100px");
-
-			// reset the timer and display it
+			// reset the timer
 			game.setTime(settings.quizTime);
 
-			// show small game brand, timer, and questions
-			$("#timer").removeClass("hide");
-			// $(".navbar-right").removeClass("hide");
-			$(".question").removeClass("hide");
+			// dont render dom changes until they are all complete
+			$( function() {
+				// hide the large game brand and play button
+				$(".navbar-brand").addClass("hide");
+				$("header").addClass("hide");
+
+				// add top padding to first section
+				$("section").eq(0).css("padding-top", "100px");
+
+				// show small game brand, timer, and questions
+				$("#timer").removeClass("hide");
+				// $(".navbar-right").removeClass("hide");
+				$(".question").removeClass("hide");
+			});
 
 			// start the quiz timer for 1 second intervals
 			game.quizTimerId = setInterval( game.quizTimer, 1000 );
