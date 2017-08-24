@@ -1,7 +1,7 @@
 
 // basic game settings
 var settings = {
-	quizTime: 30 // quiz time in seconds
+	quizTime: 2 // quiz time in seconds
 };
 
 $(document).ready(function() {
@@ -15,12 +15,12 @@ $(document).ready(function() {
 			    "category": "Entertainment: Board Games",
 			    "type": "multiple",
 			    "difficulty": "hard",
-			    "question": "The board game &#039;Monopoly&#039; is a variation of what board game?",
-			    "correct_answer": "The Landlord&#039;s Game",
+			    "question": "The board game 'Monopoly' is a variation of what board game?",
+			    "correct_answer": "The Landlord's Game",
 			    "incorrect_answers": [
 			        "Territorial Dispute",
 			        "Property Feud",
-			        "The Monopolist&#039;s Game"
+			        "The Monopolist's Game"
 			    ]
 			}, {
 			    "category": "Entertainment: Board Games",
@@ -37,7 +37,7 @@ $(document).ready(function() {
 			    "category": "Entertainment: Board Games",
 			    "type": "multiple",
 			    "difficulty": "easy",
-			    "question": "Which of these games includes the phrase &quot;Do not pass Go, do not collect $200&quot;?",
+			    "question": 'Which of these games includes the phrase "Do not pass Go, do not collect $200"?',
 			    "correct_answer": "Monopoly",
 			    "incorrect_answers": [
 			        "Pay Day",
@@ -60,11 +60,19 @@ $(document).ready(function() {
 		// template html element
 		$qTemplate: $("#q-template"),
 
-		// quiz timer (set to initial value in seconds)
-		time: 30,
+		// container for the results of the quiz
+		quizResults: {
+			correct: 0,
+			incorrect: 0,
+			unanswered: 0,
+			elapsedTime: 0
+		},
 
 		// holds the id returned for the quiz timer
 		quizTimerId: false,
+
+		// quiz timer (set to initial value in seconds)
+		time: 30,
 
 
 		// ----- methods ----- //
@@ -80,7 +88,6 @@ $(document).ready(function() {
 			// var hrefNext;
 			// var hrefPrev;
 			var qObj;
-			var strHtml;
 
 			// class for setting alternate styling on questions
 			altStyle = "success";
@@ -89,6 +96,9 @@ $(document).ready(function() {
 			for ( var i = 0; i < arrQ.length; i++ ) {
 				qObj = arrQ[i];
 				id = "q" + i;
+
+				// give the question an id property
+				qObj.id = id;
 
 				// set href values for links to prev and next
 				// questions
@@ -139,24 +149,69 @@ $(document).ready(function() {
 				// get array of possible answers
 				arrChoices = this.getChoices(qObj);
 
+				// add a fieldset and bootstrap styling to the to 
+				// put the answers in
+				$newQ.find(".choices")
+					.append(
+						"<fieldset>"
+						+ "<div class='form-group'>"
+						+ "</div>"
+						+ "</fieldset>"
+				);
+
 				// add each choice from q.choices
 				for ( var n = 0; n < arrChoices.length; n++ ) {
 					// add html for possible answer
-					strHtml = "<div class='radio'>"
-						+ "<label>"
-						+ "<input type='radio'"
-							+ "name='" + id + "-answer'"
-							+ "value='" +  arrChoices[n] + "'"
-						+ ">" + arrChoices[n]
-						+"</label>"
-						+ "</div>";
-					$newQ.find(".choices").append(strHtml);
+					$newQ.find(".form-group")
+						.append(
+							"<div class='radio'>"
+							+ "<label>"
+							+ "<input type='radio'"
+								+ "name='" + id + "-answer'"
+								+ "value='" +  arrChoices[n] + "'"
+							+ ">" + arrChoices[n]
+							+"</label>"
+							+"</div>");
 				}
 				
 				// insert the question in front of the template
 				$newQ.insertBefore(this.$qTemplate);
 			}
 
+		},
+
+		calculateResults: function() {
+		// totals results and sets values for
+		// game.quizResults
+			
+			// check each questions
+			$(".question").each( function(i) {
+				var correctAns;
+				var userAns;
+
+				// get the user and correct answers
+				userAns = $(this).find("input:checked").val();
+				correctAns = game.questions[i].correct_answer;
+
+				
+				// if no answer
+				if ( !userAns ) {
+					// increment unanswered
+					game.quizResults.unanswered++;
+				}
+				// if answer is correct
+				else if ( userAns === correctAns) {
+					// increment correct
+					game.quizResults.correct++;
+				}
+				// else increment incorrect
+				else {
+					game.quizResults.incorrect++;
+				}				
+			});
+
+			// return results object
+			return game.quizResults;
 		},
 
 		getChoices: function(oQuestion) {
@@ -214,6 +269,17 @@ $(document).ready(function() {
 			}
 		},
 
+		showResults: function(results) {
+		// hides the questions and shows the results
+
+			// update elements
+
+
+			// show the results
+			$(".results").removeClass("hide");
+
+		},
+
 		setTime: function(seconds) {
 		// set the quiz time and update text of displayed time.
 		// this does not show or hide the time display.
@@ -252,12 +318,26 @@ $(document).ready(function() {
 			console.log("stop quiz");
 
 			// lock the questions
+			$("fieldset").prop("disabled", true);
+
 			// stop the timer
-			// calculate elapsed time
-			// get number of questions correct
-			// get number of questions incorrect
-			// get number of questions unanswered
-			// display quiz results
+			clearInterval(game.quizTimerId);
+
+			// get the time elapsed
+			game.quizResults.elapsedTime = settings.quizTime - game.time;
+			
+			game.calculateResults();
+			console.log(game.quizResults);
+/*			quizResults: {
+			correct: 0,
+			incorrect: 0,
+			unanswered: 0,
+			elapsedTime: 0
+		}*/
+			// set the values 
+			game.showResults(game.quizResults);
+
+			
 		}
 
 	};
