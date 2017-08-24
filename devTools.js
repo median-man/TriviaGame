@@ -5,28 +5,6 @@ versions. Don't forget to remove link from html.
 
 /**** development tools *****/
 var myDevTools = {
-    // unhide/re-hide elements based on options
-    unhide: function(options) {
-        var selector;
-        var changed;
-        if (options == "a" || !options) {
-            selector = ".hide";
-        } else if (options == "sections") {
-        	console.log("unhide sections");
-            selector = "section.hide";
-        } else if (options == "undo" || options == "unhide") {
-            $(".unhidden").toggleClass("unhidden hide");
-        } else {
-            console.log("myDevTools.unhide: invalid parameter passed");
-        }
-        if (selector) {
-            changed = $(selector);
-            changed.removeClass("hide").addClass("unhidden");
-            console.log("successfully unhid", changed);
-        }
-
-    },
-
     // validates generated html
     // thanks to Rob W who posted this on stack overlow
     // https://stackoverflow.com/questions/7752058/validate-dynamic-html-generated-by-javascript#answer-7752345
