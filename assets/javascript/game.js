@@ -263,7 +263,7 @@ $(document).ready(function() {
 
 			// when user clicks done, stop the quiz
 			$("#btnDone").on("click", this.stopQuiz);
-			
+
 			// when user clicks next, display next question
 			// when user clicks previous, display prev queston
 
@@ -323,6 +323,9 @@ $(document).ready(function() {
 
 			// reset the questions
 			game.resetQuestions();
+
+			// hide results if they are displayed
+			$(".results").addClass("hide");
 
 			// dont render dom changes until they are all complete
 			$( function() {
