@@ -1,7 +1,7 @@
 
 // basic game settings
 var settings = {
-	quizTime: 500 // quiz time in seconds
+	quizTime: 20 // quiz time in seconds
 };
 
 $(document).ready(function() {
@@ -140,7 +140,6 @@ $(document).ready(function() {
 				// insert the question in front of the template
 				$newQ.insertBefore(this.$qTemplate);
 			}
-
 		},
 
 		calculateResults: function() {
@@ -219,19 +218,13 @@ $(document).ready(function() {
 			// add questions (still hidden) to the document
 			this.addQuestions(this.questions);
 
-			// TODO:
-			// set a timeout to ask user if still there
-
 			// start quiz if user clicks play button
 			$(".start-game").on("click", this.startQuiz);
 
 			// when user clicks done, stop the quiz
 			$("#btnDone").on("click", this.stopQuiz);
-
-			// when user clicks next, display next question
-			// when user clicks previous, display prev queston
-
 		},
+		
 		quizTimer: function() {
 		// function passed to setInterval. tracks time
 		// and updates the displayed quiz time.
@@ -261,7 +254,7 @@ $(document).ready(function() {
 				$(".results").removeClass("hide");
 				$(".question").addClass("hide");
 
-			});			
+			});
 		},
 
 		setTime: function(seconds) {
@@ -326,12 +319,7 @@ $(document).ready(function() {
 			game.calculateResults();
 			game.showResults(game.quizResults);	
 		}
-
 	};
 
-	game.run();
-
-	/***** test code *****/
-	// myDevTools.unhide("sections");
-	// $("section").toggleClass("hide");
+	game.run();	
 });
