@@ -1,5 +1,7 @@
 /*** general styles ***/
-
+html {
+    background-image: url("assets/images/background-games.jpg");
+}
 
 /*** play button ***/
 button.start-game {
