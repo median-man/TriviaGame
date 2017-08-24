@@ -25,10 +25,14 @@ button.start-game .glyphicon {
 /*** questions ***/
 
 
-
 /*** results ***/
 section.results {
 	background-color: #2C3E50;
 	color: white;
 }
 
+@media (min-width: 768px) {
+	section:first-of-type .container {
+	    padding-top: 70px;
+	}
+}

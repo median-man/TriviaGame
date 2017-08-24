@@ -228,6 +228,9 @@ $(document).ready(function() {
 			$(".navbar-brand").addClass("hide");
 			$("header").addClass("hide");
 
+			// add top padding to first section
+			$("section").eq(0).css("padding-top", "100px");
+
 			// reset the timer and display it
 			game.setTime(settings.quizTime);
 
