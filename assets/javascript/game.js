@@ -6,19 +6,49 @@ $(document).ready(function() {
 		// answers
 		questions: [
 			{
-				q: "What color is the sky?",
-				choices: ["red", "yellow", "blue", "green"],
-				a: "blue"
-			},
-			{
-				q: "How many fingers are on a regular hand?",
-				choices: ["1", "3", "5", "4"],
-				a: "4"
-			},
-			{
-				q: "The pope is from which of the follow religions?",
-				choices: ["Mormon", "Roman Catholic", "Islam", "Hindu"],
-				a: "Roman Catholic"
+			    "category": "Entertainment: Board Games",
+			    "type": "multiple",
+			    "difficulty": "hard",
+			    "question": "The board game &#039;Monopoly&#039; is a variation of what board game?",
+			    "correct_answer": "The Landlord&#039;s Game",
+			    "incorrect_answers": [
+			        "Territorial Dispute",
+			        "Property Feud",
+			        "The Monopolist&#039;s Game"
+			    ]
+			}, {
+			    "category": "Entertainment: Board Games",
+			    "type": "multiple",
+			    "difficulty": "easy",
+			    "question": "How many pieces are there on the board at the start of a game of chess?",
+			    "correct_answer": "32",
+			    "incorrect_answers": [
+			        "16",
+			        "20",
+			        "36"
+			    ]
+			}, {
+			    "category": "Entertainment: Board Games",
+			    "type": "multiple",
+			    "difficulty": "easy",
+			    "question": "Which of these games includes the phrase &quot;Do not pass Go, do not collect $200&quot;?",
+			    "correct_answer": "Monopoly",
+			    "incorrect_answers": [
+			        "Pay Day",
+			        "Cluedo",
+			        "Coppit"
+			    ]
+			}, {
+			    "category": "Entertainment: Board Games",
+			    "type": "multiple",
+			    "difficulty": "medium",
+			    "question": "In Chess, the Queen has the combined movement of which two pieces?",
+			    "correct_answer": "Bishop and Rook",
+			    "incorrect_answers": [
+			        "Rook and King",
+			        "Knight and Bishop",
+			        "King and Knight"
+			    ]
 			}
 		],
 		// template html element
@@ -33,25 +63,26 @@ $(document).ready(function() {
 		// inserts them above the template
 		
 			var $newQ;
+			var arrChoices;
 			var altStyle;
 			var id;
-			var hrefNext;
-			var hrefPrev;
+			// var hrefNext;
+			// var hrefPrev;
 			var qObj;
 			var strHtml;
 
 			// class for setting alternate styling on questions
 			altStyle = "success";
 
-			// add each questions in this.questions to the page
+			// add each question in arrQ to the page
 			for ( var i = 0; i < arrQ.length; i++ ) {
 				qObj = arrQ[i];
 				id = "q" + i;
 
 				// set href values for links to prev and next
 				// questions
-				hrefNext = "#q" + ( i + 1 );
-				hrefPrev = "#q" + ( i - 1);
+				// hrefNext = "#q" + ( i + 1 );
+				// hrefPrev = "#q" + ( i - 1);
 
 				// create a copy of the template giving it a unique 
 				// id based on index in the questions array
@@ -65,7 +96,7 @@ $(document).ready(function() {
 					
 
 				// populate the question
-				$newQ.find(".prompt").text(qObj.q);
+				$newQ.find(".prompt").html(qObj.question);
 
 				// // hide/show previous/next/done accordingly
 				// if ( i === 0 ) {
@@ -94,18 +125,20 @@ $(document).ready(function() {
 				// 		.attr("href", hrefNext);
 				// }
 
+				// get array of possible answers
+				arrChoices = this.getChoices(qObj);
 
 				// add each choice from q.choices
-				for ( var n = 0; n < qObj.choices.length; n++ ) {
-					// build html string for radio button
-					strHtml = "<label><input "
-						+ "type='radio' "
-						+ "name='" + id + "-answer' "
-						+ "value='choice-" + qObj.choices[n]
-						+ "'>" + qObj.choices[n]
-						+ "</label>";
-
-					// add the button to page
+				for ( var n = 0; n < arrChoices.length; n++ ) {
+					// add html for possible answer
+					strHtml = "<div class='radio'>"
+						+ "<label>"
+						+ "<input type='radio'"
+							+ "name='" + id + "-answer'"
+							+ "value='" +  arrChoices[n] + "'"
+						+ ">" + arrChoices[n]
+						+"</label>"
+						+ "</div>";
 					$newQ.find(".choices").append(strHtml);
 				}
 				
@@ -113,6 +146,31 @@ $(document).ready(function() {
 				$newQ.insertBefore(this.$qTemplate);
 			}
 
+		},
+
+		getChoices: function(oQuestion) {
+		// returns an array of possible answers (choices)
+		// in randomized order
+		// oQuestion is a question object
+
+			// get array of correct and incorrect answers
+			var arrChoices = oQuestion.incorrect_answers
+				.concat(oQuestion.correct_answer);
+
+			// shuffle the array
+			var c;
+			var randInt;
+
+			for ( var i = arrChoices.length - 1; i > 0; i-- ) {
+				// random index from array (0 to i)
+				randInt = Math.floor( Math.random() * (i+1) );
+
+				// swap with random element in array
+				c = arrChoices[i];
+				arrChoices[i] = arrChoices[randInt]
+				arrChoices[randInt] = c;
+			}
+			return arrChoices;
 		},
 
 		run: function() {
@@ -130,7 +188,7 @@ $(document).ready(function() {
 
 			// when user clicks next, display next question
 			// when user clicks previous, display prev queston
-			// whenn user clicks done, stop the quiz
+			// when user clicks done, stop the quiz
 
 		},
 		quizTimer: function() {
@@ -171,4 +229,5 @@ $(document).ready(function() {
 
 	/***** test code *****/
 	// myDevTools.unhide("sections");
+	$("section").toggleClass("hide");
 });
