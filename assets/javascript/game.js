@@ -1,7 +1,7 @@
 
 // basic game settings
 var settings = {
-	quizTime: 30 // quiz time in seconds
+	quizTime: 5 // quiz time in seconds
 };
 
 $(document).ready(function() {
@@ -61,12 +61,7 @@ $(document).ready(function() {
 		$qTemplate: $("#q-template"),
 
 		// container for the results of the quiz
-		quizResults: {
-			correct: 0,
-			incorrect: 0,
-			unanswered: 0,
-			elapsedTime: 0
-		},
+		quizResults: {},
 
 		// holds the id returned for the quiz timer
 		quizTimerId: false,
@@ -242,6 +237,14 @@ $(document).ready(function() {
 			return arrChoices;
 		},
 
+		resetQuestions: function() {
+		// unlocks quesionts and clears answers
+			$("fieldset")
+				.prop("disabled", false)
+				.find("input:checked")
+				.prop("checked", false);
+		},
+
 		run: function() {
 		// this method runs the game. should be called
 		// only once after page loads.
@@ -306,6 +309,17 @@ $(document).ready(function() {
 			// reset the timer
 			game.setTime(settings.quizTime);
 
+			// set/reset results
+			game.quizResults = {
+				correct: 0,
+				incorrect: 0,
+				unanswered: 0,
+				elapsedTime: 0
+			};
+
+			// reset the questions
+			game.resetQuestions();
+
 			// dont render dom changes until they are all complete
 			$( function() {
 				// hide the large game brand and play button
@@ -328,8 +342,6 @@ $(document).ready(function() {
 		stopQuiz: function() {
 		// stops quiz and displays the results
 
-			console.log("stop quiz");
-
 			// lock the questions
 			$("fieldset").prop("disabled", true);
 
@@ -338,7 +350,7 @@ $(document).ready(function() {
 			
 			// render the quiz results and hide the questions
 			game.calculateResults();
-			game.showResults(game.quizResults);			
+			game.showResults(game.quizResults);	
 		}
 
 	};
