@@ -1,7 +1,7 @@
 
 // basic game settings
 var settings = {
-	quizTime: 5 // quiz time in seconds
+	quizTime: 500 // quiz time in seconds
 };
 
 $(document).ready(function() {
@@ -57,6 +57,9 @@ $(document).ready(function() {
 			    ]
 			}
 		],
+
+		// ----- properties ----- //
+
 		// template html element
 		$qTemplate: $("#q-template"),
 
@@ -292,8 +295,7 @@ $(document).ready(function() {
 				$(".results").removeClass("hide");
 				$(".question").addClass("hide");
 
-			});
-			
+			});			
 		},
 
 		setTime: function(seconds) {
@@ -331,8 +333,11 @@ $(document).ready(function() {
 
 				// show small game brand, timer, and questions
 				$("#timer").removeClass("hide");
-				// $(".navbar-right").removeClass("hide");
 				$(".question").removeClass("hide");
+
+				// move the done button to the last questions and 
+				// display it
+				$("fieldset").last().after($("#btnDone").removeClass("hide"))
 			});
 
 			// start the quiz timer for 1 second intervals
