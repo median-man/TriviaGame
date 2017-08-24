@@ -83,8 +83,6 @@ $(document).ready(function() {
 			var arrChoices;
 			var altStyle;
 			var id;
-			// var hrefNext;
-			// var hrefPrev;
 			var qObj;
 
 			// class for setting alternate styling on questions
@@ -98,11 +96,6 @@ $(document).ready(function() {
 				// give the question an id property
 				qObj.id = id;
 
-				// set href values for links to prev and next
-				// questions
-				// hrefNext = "#q" + ( i + 1 );
-				// hrefPrev = "#q" + ( i - 1);
-
 				// create a copy of the template giving it a unique 
 				// id based on index in the questions array
 				$newQ = this.$qTemplate.clone()
@@ -111,38 +104,10 @@ $(document).ready(function() {
 				// odd indexed questions are given different style
 				if ( i % 2 === 1 ) {
 					$newQ.addClass(altStyle);
-				}
-					
+				}					
 
 				// populate the question
 				$newQ.find(".prompt").html(qObj.question);
-
-				// // hide/show previous/next/done accordingly
-				// if ( i === 0 ) {
-				// 	// first question. hide previous
-				// 	$newQ.find(".previous").addClass("hide");
-
-				// 	// set href for next question
-				// 	$newQ.find(".next")
-				// 		.attr("href", "#q" + ( i + 1 ));
-
-				// // if the question is the final question
-				// } else if ( i === arrQ.length - 1 ) {
-				// 	// set href for previous to id of prev question
-				// 	$newQ.find(".previous")
-				// 		.attr("href", hrefPrev);
-
-				// 	// last question. hide next and show done
-				// 	$newQ.find(".next").addClass("hide");
-				// 	$newQ.find(".done").removeClass("hide");
-
-				// } else {
-				// 	// set href for next and previous
-				// 	$newQ.find(".previous")
-				// 		.attr("href", hrefPrev);
-				// 	$newQ.find(".next")
-				// 		.attr("href", hrefNext);
-				// }
 
 				// get array of possible answers
 				arrChoices = this.getChoices(qObj);
@@ -166,7 +131,7 @@ $(document).ready(function() {
 							+ "<label>"
 							+ "<input type='radio'"
 								+ "name='" + id + "-answer'"
-								+ "value='" +  arrChoices[n] + "'"
+								+ "value='" +  n + "'"
 							+ ">" + arrChoices[n]
 							+"</label>"
 							+"</div>");
@@ -191,9 +156,8 @@ $(document).ready(function() {
 				var userAns;
 
 				// get the user and correct answers
-				userAns = $(this).find("input:checked").val();
+				userAns = $(this).find("input:checked").parent().text();
 				correctAns = game.questions[i].correct_answer;
-
 				
 				// if no answer
 				if ( !userAns ) {
