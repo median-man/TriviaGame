@@ -1,3 +1,9 @@
+
+// basic game settings
+var settings = {
+	quizTime: 30 // quiz time in seconds
+};
+
 $(document).ready(function() {
 
 	var game = {
@@ -54,6 +60,11 @@ $(document).ready(function() {
 		// template html element
 		$qTemplate: $("#q-template"),
 
+		// quiz timer (set to initial value in seconds)
+		time: 30,
+
+		// holds the id returned for the quiz timer
+		quizTimerId: false,
 
 
 		// ----- methods ----- //
@@ -87,7 +98,7 @@ $(document).ready(function() {
 				// create a copy of the template giving it a unique 
 				// id based on index in the questions array
 				$newQ = this.$qTemplate.clone()
-					.attr("id", id);
+					.attr("id", id).addClass("question");
 
 				// odd indexed questions are given different style
 				if ( i % 2 === 1 ) {
@@ -186,33 +197,53 @@ $(document).ready(function() {
 			// start quiz if user clicks play button
 			$(".start-game").on("click", this.startQuiz);
 
+			// when user clicks done, stop the quiz
 			// when user clicks next, display next question
 			// when user clicks previous, display prev queston
-			// when user clicks done, stop the quiz
 
 		},
 		quizTimer: function() {
 		// function passed to setInterval. tracks time
 		// and updates the displayed quiz time.
 
-			// decrement the timer
-			// update the displayed quiz time
+			game.setTime(game.time - 1);
+
 			// if timer is 0 stop the quiz
+			if ( game.time === 0 ) {
+				game.stopQuiz();
+			}
+		},
+
+		setTime: function(seconds) {
+		// set the quiz time and update text of displayed time.
+		// this does not show or hide the time display.
+			this.time = seconds;
+			$("#timer").text("Time: " + seconds);
 		},
 
 		startQuiz: function() {
 		// starts the quiz and quiz timer
 
-			// set the remaining time to initial value
-			// hide the large game brand
-			// show timer
-			// show small game brand
-			// show the questions
-			// start the quiz timer
+			// hide the large game brand and play button
+			$(".navbar-brand").addClass("hide");
+			$("header").addClass("hide");
+
+			// reset the timer and display it
+			game.setTime(settings.quizTime);
+
+			// show small game brand, timer, and questions
+			$("#timer").removeClass("hide");
+			// $(".navbar-right").removeClass("hide");
+			$(".question").removeClass("hide");
+
+			// start the quiz timer for 1 second intervals
+			game.quizTimerId = setInterval( game.quizTimer, 1000 );
 		},
 
 		stopQuiz: function() {
 		// stops quiz and displays the results
+
+			console.log("stop quiz");
 
 			// lock the questions
 			// stop the timer
@@ -229,5 +260,5 @@ $(document).ready(function() {
 
 	/***** test code *****/
 	// myDevTools.unhide("sections");
-	$("section").toggleClass("hide");
+	// $("section").toggleClass("hide");
 });
