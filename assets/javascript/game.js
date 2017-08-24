@@ -1,7 +1,7 @@
 
 // basic game settings
 var settings = {
-	quizTime: 2 // quiz time in seconds
+	quizTime: 30 // quiz time in seconds
 };
 
 $(document).ready(function() {
@@ -183,6 +183,9 @@ $(document).ready(function() {
 		calculateResults: function() {
 		// totals results and sets values for
 		// game.quizResults
+
+			// get the time elapsed
+			game.quizResults.elapsedTime = settings.quizTime - game.time;
 			
 			// check each questions
 			$(".question").each( function(i) {
@@ -273,11 +276,21 @@ $(document).ready(function() {
 		// hides the questions and shows the results
 
 			// update elements
+			$("#score").html(
+				"<p>Correct: " + results.correct + "</p>"
+				+ "<p>Incorrect: " + results.incorrect + "</p>"
+				+ "<p>Unanswered: " + results.unanswered + "</p>"
+				+ "<p>Time: " + results.elapsedTime + " seconds</p>"
+			);
 
 
-			// show the results
-			$(".results").removeClass("hide");
+			// show the results and hide the questions
+			$( function() {
+				$(".results").removeClass("hide");
+				$(".question").addClass("hide");
 
+			});
+			
 		},
 
 		setTime: function(seconds) {
@@ -321,23 +334,11 @@ $(document).ready(function() {
 			$("fieldset").prop("disabled", true);
 
 			// stop the timer
-			clearInterval(game.quizTimerId);
-
-			// get the time elapsed
-			game.quizResults.elapsedTime = settings.quizTime - game.time;
+			clearInterval(game.quizTimerId);			
 			
+			// render the quiz results and hide the questions
 			game.calculateResults();
-			console.log(game.quizResults);
-/*			quizResults: {
-			correct: 0,
-			incorrect: 0,
-			unanswered: 0,
-			elapsedTime: 0
-		}*/
-			// set the values 
-			game.showResults(game.quizResults);
-
-			
+			game.showResults(game.quizResults);			
 		}
 
 	};
