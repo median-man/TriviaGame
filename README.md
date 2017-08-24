@@ -5,20 +5,12 @@ View the assignment instructions (here)[http://ucsd.bootcampcontent.com/UCSD-Cod
 
 ## Bugs
 * doesn't award correct answer for monopoly question
-* doesn't hide results when another game is started
+* FIXED: ~~doesn't hide results when another game is started~~
 
 
 ## Development Map
-* Review specs
-* Flow chart program
-* List different views needed and identify static elements vs dynamic
-* Layout necessary views/pages in black and white, no images or artwork yet
-* Create array of question/answer objects
-* Code game logic
-* test
-* debug
-* apply colors/styling
-* debug
+* add themed images
+* get randome questions from api
 * decide what animations to use if any
 * code animations
 * debug
