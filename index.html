@@ -16,6 +16,9 @@
 </head>
 
 <body>
+    <!-- responsive background image -->
+    <div id="bg-img" role="img" aria-label="boardgame collage"></div>
+
 	<!-- brand -->
     <nav id="mainNav" class="navbar navbar-default navbar-fixed-top navbar-custom">
         <div class="container">
@@ -38,6 +41,8 @@
             </div>
         </div>
     </header>
+
+    <!-- template for a question -->
     <section class="hide" id="q-template">
         <div class="container">
             <div class="row">
@@ -52,6 +57,8 @@
             </div>
         </div>
     </section>
+
+    <!-- quiz results -->
     <section class="results hide">
         <div class="container">
             <div class="row">
@@ -73,11 +80,16 @@
             </div>
         </div>
     </section>
+
+    <!-- done button -->
     <button class="btn btn-primary btn-block hide" id="btnDone">Done</button>
+
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous">
         
     </script>
     <script src="assets/javascript/game.js"></script>
+
+
     <!-- devTools.js is for development only. remove before merging with master -->
     <!-- <script src="devTools.js"></script> -->
 </body>
