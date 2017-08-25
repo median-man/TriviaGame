@@ -35,8 +35,7 @@ button.start-game .glyphicon {
 /*** header ***/
 header {
     padding-top: 5%;
-    padding-bottom: 100vh;
-    max-height: 100vh;
+    padding-bottom: 70vh;
 }
 
 /*** questions ***/
@@ -51,7 +50,8 @@ section {
 
 /*** results ***/
 section.results {
-	background-color: #2C3E50;
+	background-color: transparent;
+    padding-bottom: 50vh;
 	color: white;
 }
 
