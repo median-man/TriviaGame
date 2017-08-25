@@ -261,6 +261,7 @@ $(document).ready(function() {
 		setTime: function(seconds) {
 		// set the quiz time and update text of displayed time.
 		// this does not show or hide the time display.
+
 			this.time = seconds;
 			$("#timer").text("Time: " + seconds);
 		},
@@ -322,16 +323,18 @@ $(document).ready(function() {
 		}
 	};
 
-	// load in larger background image if screen size is large
-	$(window).resize(function() {
-		// load larger background image if screen size is over 640px
-		// saves loading larger image for mobile screens
-		if ( $(this).width() > 640 ) {
+	function bgImageSize() {
+	// loads a larger background image if screen size is large
+		if ( $(window).width() > 640 ) {
 			$("html").css("background-image", 
 				"url(assets/images/background-1920.jpg)");
 		}
-	});
+	}
 
+	bgImageSize();
+
+	// handle change in window resize
+	$(window).resize(bgImageSize);
 
 	game.run();	
 });
