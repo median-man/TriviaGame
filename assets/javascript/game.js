@@ -1,7 +1,7 @@
 
 // basic game settings
 var settings = {
-	quizTime: 20 // quiz time in seconds
+	quizTime: 1000 // quiz time in seconds
 };
 
 // collection of questions for game
@@ -321,6 +321,17 @@ $(document).ready(function() {
 			game.showResults(game.quizResults);	
 		}
 	};
+
+	// load in larger background image if screen size is large
+	$(window).resize(function() {
+		// load larger background image if screen size is over 640px
+		// saves loading larger image for mobile screens
+		if ( $(this).width() > 640 ) {
+			$("html").css("background-image", 
+				"url(assets/images/background-1920.jpg)");
+		}
+	});
+
 
 	game.run();	
 });

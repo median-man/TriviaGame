@@ -1,7 +1,20 @@
 /*** general styles ***/
-html {
-    background-image: url("assets/images/background-games.jpg");
+body {
+    height: 100%;
+    background-color: transparent;
+    background-color: rgba(44, 62, 80, 0.5);
+    
 }
+
+/*** background image ***/
+html {
+    background-image: url(../images/background-640.jpg);
+    background-position: center center;
+    background-attachment: fixed;    
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
 
 /*** play button ***/
 button.start-game {
@@ -20,12 +33,21 @@ button.start-game .glyphicon {
 }
 
 /*** header ***/
-.intro-text {
-    margin-top: 15px;
+header {
+    padding-top: 5%;
+    padding-bottom: 100vh;
+    max-height: 100vh;
 }
 
 /*** questions ***/
+section {    
+    background-color: rgba(255, 255, 255, 0.7);
+}
 
+/*** done button ***/
+#btnDone {
+    margin-top: 2em;
+}
 
 /*** results ***/
 section.results {
