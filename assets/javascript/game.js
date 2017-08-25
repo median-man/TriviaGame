@@ -1,7 +1,7 @@
 
 // basic game settings
 var settings = {
-	quizTime: 30 // quiz time in seconds
+	quizTime: 20 // quiz time in seconds
 };
 
 // collection of questions for game
