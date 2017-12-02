@@ -1,3 +1,5 @@
+const timerId = 0;
+
 // collection of questions for game
 const questions = [
   {
@@ -46,3 +48,42 @@ const questions = [
     ],
   },
 ];
+
+// Function returns jQuery object containing a question element
+function createQuestion(question) {
+  // create a new div
+  let $div = $('<div>');
+  let $form = $('<form>');
+  let answers = [question.correct_answer, ...question.incorrect_answers];
+  
+  // append the question text to the div
+  $(`<h2>${question.question}</h2>`).appendTo($div);
+  
+  // create array of answer elements
+  answers.forEach((answer) => {
+    $form.append(`<div class="radio"><label><input type="radio" name="answer">${answer}</label></div>`);
+  });
+  $div.append($form);
+  $form
+    .append('<button type="submit" class="btn btn-lg">Next</button>')
+    .on('submit', (event) => {
+      event.preventDefault();
+      console.log(event);
+    });
+  return $div;
+}
+
+// start the game when the start button is clicked
+$(document).ready(() => {
+  $('#start').on('click', () => {
+    // hide the initial view and show the first question
+    // show the first question
+    let $question = createQuestion(questions[0]);
+    $('#question-view').append($question);
+    $(() => {
+      $('#start-view').addClass('hidden');
+      $('#question-view').removeClass('hidden');
+    });
+    // start the timer for the first question
+  });
+});
