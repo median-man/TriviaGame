@@ -15,48 +15,8 @@ html {
     background-size: cover;
 }
 
-
-/*** play button ***/
-button.start-game {
-    border-radius: 50%;
-    padding: 3%;
-}
-button.start-game .glyphicon {
-    font-size: 70px;
-    left: 7%;
-    top: -1px;
-}
-
-/*** title/"nav" bar ***/
-.navbar-default .navbar-text {
-    color: white;
-}
-
-/*** header ***/
-header {
-    padding-top: 5%;
-    padding-bottom: 70vh;
-}
-
-/*** questions ***/
-section {    
-    background-color: rgba(255, 255, 255, 0.7);
-}
-
-/*** done button ***/
-#btnDone {
-    margin-top: 2em;
-}
-
-/*** results ***/
-section.results {
-	background-color: transparent;
-    padding-bottom: 50vh;
-	color: white;
-}
-
 @media (min-width: 768px) {
-	section:first-of-type .container {
-	    padding-top: 70px;
-	}
+	html {
+    background-image: url(../images/background-1920.jpg);
+  }
 }
