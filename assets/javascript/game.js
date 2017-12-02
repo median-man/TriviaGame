@@ -1,8 +1,9 @@
-let currentQuestionIndex = 0;
+let currentQuestionIndex = -1;
 let score = 0;
 let timerId = 0;
 let timeRemaining = 0;
 const questionTime = 5; // seconds
+const answerTime = 4; // seconds
 
 // collection of questions for game
 const questions = [
@@ -82,6 +83,8 @@ function showAnswer() {
     $('#question-view').addClass('hidden');
     $('#answer-view').removeClass('hidden');
   });
+
+  // set timeout to show next question
 }
 
 // Updates display of the remaining time and stops timer when time runs down
@@ -123,23 +126,27 @@ function createQuestion(question) {
   return $div;
 }
 
-// start the game when the start button is clicked
-$(document).ready(() => {
-  $('#start').on('click', () => {
-    // set time remaining to 5 seconds
-    timeRemaining = questionTime;
+// Function display the next question and sets question timer
+function showNextQuestion() {
+  // increment the index of the current question and reset question timer
+  currentQuestionIndex += 1;
+  timeRemaining = questionTime;
 
-    // hide the initial view and show the first question
-    // show the first question
-    const $question = createQuestion(questions[0]);
-    $('#question-view').append($question);
-    renderTimer(timeRemaining);
-    $(() => {
-      $('#start-view').addClass('hidden');
-      $('#question-view').removeClass('hidden');
-    });
-
-    // start the timer for the first question
-    timerId = setInterval(tick, 1000);
+  // hide the initial view and show the first question
+  // show the first question
+  const $question = createQuestion(questions[0]);
+  $('#question-view').append($question);
+  renderTimer(timeRemaining);
+  $(() => {
+    $('#start-view').addClass('hidden');
+    $('#question-view').removeClass('hidden');
   });
+
+  // start the timer for the first question
+  timerId = setInterval(tick, 1000);
+}
+
+$(document).ready(() => {
+  // start the game when the start button is clicked
+  $('#start').on('click', showNextQuestion);
 });
