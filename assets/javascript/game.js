@@ -1,4 +1,8 @@
-const timerId = 0;
+let currentQuestionIndex = 0;
+let score = 0;
+let timerId = 0;
+let timeRemaining = 0;
+const questionTime = 5; // seconds
 
 // collection of questions for game
 const questions = [
@@ -49,26 +53,72 @@ const questions = [
   },
 ];
 
+// displays time remaining
+function renderTimer(seconds) {
+  $('#timer').text(seconds);
+}
+
+function showAnswer() {
+  // get the user's answer
+  const userAnswer = $('input[name="answer"]:checked').val();
+  let msg = '';
+
+  // set message for correct incorect
+  if (userAnswer === questions[currentQuestionIndex].correct_answer) {
+    msg = 'Correct!';
+  } else {
+    msg = 'Wrong answer.';
+  }
+  $('#answer-msg').text(msg);
+
+  // set html for user's answer
+  $('#user-answer').text(userAnswer);
+
+  // set html for correct answer
+  $('#correct-answer').text(questions[currentQuestionIndex].correct_answer);
+
+  // hide the question view and review the answer view
+  $(() => {
+    $('#question-view').addClass('hidden');
+    $('#answer-view').removeClass('hidden');
+  });
+}
+
+// Updates display of the remaining time and stops timer when time runs down
+function tick() {
+  // if time remaining is 0, show the answer and stop the timer
+  if (timeRemaining === 0) {
+    clearInterval(timerId);
+    showAnswer();
+
+  // otherwise decrement the time
+  } else {
+    timeRemaining -= 1;
+    // update display of time remaining
+    renderTimer(timeRemaining);
+  }
+}
+
 // Function returns jQuery object containing a question element
 function createQuestion(question) {
   // create a new div
-  let $div = $('<div>');
-  let $form = $('<form>');
-  let answers = [question.correct_answer, ...question.incorrect_answers];
-  
+  const $div = $('<div>');
+  const $form = $('<form>');
+  const answers = [question.correct_answer, ...question.incorrect_answers];
+
   // append the question text to the div
   $(`<h2>${question.question}</h2>`).appendTo($div);
-  
+
   // create array of answer elements
   answers.forEach((answer) => {
-    $form.append(`<div class="radio"><label><input type="radio" name="answer">${answer}</label></div>`);
+    $form.append(`<div class="radio"><label><input type="radio" name="answer" value="${answer}">${answer}</label></div>`);
   });
   $div.append($form);
   $form
     .append('<button type="submit" class="btn btn-lg">Next</button>')
     .on('submit', (event) => {
       event.preventDefault();
-      console.log(event);
+      showAnswer();
     });
   return $div;
 }
@@ -76,14 +126,20 @@ function createQuestion(question) {
 // start the game when the start button is clicked
 $(document).ready(() => {
   $('#start').on('click', () => {
+    // set time remaining to 5 seconds
+    timeRemaining = questionTime;
+
     // hide the initial view and show the first question
     // show the first question
-    let $question = createQuestion(questions[0]);
+    const $question = createQuestion(questions[0]);
     $('#question-view').append($question);
+    renderTimer(timeRemaining);
     $(() => {
       $('#start-view').addClass('hidden');
       $('#question-view').removeClass('hidden');
     });
+
     // start the timer for the first question
+    timerId = setInterval(tick, 1000);
   });
 });
