@@ -1,9 +1,11 @@
 let currentQuestionIndex = -1;
-let score = 0;
+let correct = 0;
+let incorrect = 0;
+let unanswered = 0;
 let timerId = 0;
 let timeRemaining = 0;
-const questionTime = 5; // seconds
-const answerTime = 4; // seconds
+const questionTime = 10; // seconds
+const answerTime = 3; // seconds
 
 // collection of questions for game
 const questions = [
@@ -60,15 +62,23 @@ function renderTimer(seconds) {
 }
 
 function showAnswer() {
+  // stop the timer
+  clearInterval(timerId);
+
   // get the user's answer
   const userAnswer = $('input[name="answer"]:checked').val();
   let msg = '';
 
-  // set message for correct incorect
+  // set message for correct/incorect and update score
   if (userAnswer === questions[currentQuestionIndex].correct_answer) {
     msg = 'Correct!';
+    correct += 1;
+  } else if (!userAnswer) {
+    msg = 'Time\'s up!';
+    unanswered += 1;
   } else {
     msg = 'Wrong answer.';
+    incorrect += 1;
   }
   $('#answer-msg').text(msg);
 
@@ -85,13 +95,13 @@ function showAnswer() {
   });
 
   // set timeout to show next question
+  setTimeout(showNextQuestion, answerTime * 1000);
 }
 
 // Updates display of the remaining time and stops timer when time runs down
 function tick() {
-  // if time remaining is 0, show the answer and stop the timer
+  // if time remaining is 0, show the answer
   if (timeRemaining === 0) {
-    clearInterval(timerId);
     showAnswer();
 
   // otherwise decrement the time
@@ -100,6 +110,30 @@ function tick() {
     // update display of time remaining
     renderTimer(timeRemaining);
   }
+}
+
+// Set initial values for game
+function initGame() {
+  correct = 0;
+  incorrect = 0;
+  unanswered = 0;
+  currentQuestionIndex = -1;
+
+  // shuffle order of questions
+  questions.sort(() => 0.5 - Math.random());
+}
+
+// Function displays the final score view
+function showFinalScore() {
+  $('#correct').text(correct);
+  $('#incorrect').text(incorrect);
+  $('#unanswered').text(unanswered);
+
+  // update the display
+  $(() => {
+    $('#answer-view').addClass('hidden');
+    $('#score-view').removeClass('hidden');
+  });
 }
 
 // Function returns jQuery object containing a question element
@@ -112,7 +146,8 @@ function createQuestion(question) {
   // append the question text to the div
   $(`<h2>${question.question}</h2>`).appendTo($div);
 
-  // create array of answer elements
+  // create array of answer elements with answers in randomized order
+  answers.sort(() => 0.5 - Math.random());
   answers.forEach((answer) => {
     $form.append(`<div class="radio"><label><input type="radio" name="answer" value="${answer}">${answer}</label></div>`);
   });
@@ -132,21 +167,32 @@ function showNextQuestion() {
   currentQuestionIndex += 1;
   timeRemaining = questionTime;
 
-  // hide the initial view and show the first question
-  // show the first question
-  const $question = createQuestion(questions[0]);
-  $('#question-view').append($question);
+  // if last question has been displayed, show final score view and stop the game
+  if (currentQuestionIndex === questions.length) {
+    return showFinalScore();
+  }
+
+  // set the html for the question
+  $('#question').remove();
+  $('#question-view').append(createQuestion(questions[currentQuestionIndex]).attr('id', 'question'));
   renderTimer(timeRemaining);
+
+  // display the question view
   $(() => {
+    $('#score-view').addClass('hidden');
     $('#start-view').addClass('hidden');
+    $('#answer-view').addClass('hidden');
     $('#question-view').removeClass('hidden');
   });
 
-  // start the timer for the first question
+  // start the timer for the question
   timerId = setInterval(tick, 1000);
 }
 
 $(document).ready(() => {
   // start the game when the start button is clicked
-  $('#start').on('click', showNextQuestion);
+  $('.start').on('click', () => {
+    initGame();
+    showNextQuestion();
+  });
 });
